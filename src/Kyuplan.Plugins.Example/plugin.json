@@ -1,0 +1,43 @@
+{
+  "id": "example",
+  "name": "Example",
+  "nameDe": "Beispiel",
+  "version": "1.0.0",
+  "description": "A template for plugins: a data source with sample data, two pages, three permissions and a few endpoints.",
+  "descriptionDe": "Eine Vorlage für Plugins: eine Datenquelle mit Beispieldaten, zwei Seiten, drei Berechtigungen und einige Endpunkte.",
+  "author": "ArizonaGreenTea05",
+  "homepage": "https://github.com/ArizonaGreenTea05/kyuplan.plugins.example",
+  "assembly": "Kyuplan.Plugins.Example.dll",
+  "permissions": [
+    { "name": "view", "label": "See the example notes", "labelDe": "Beispiel-Notizen sehen" },
+    { "name": "edit", "label": "Add and pin example notes", "labelDe": "Beispiel-Notizen hinzufügen und anheften" },
+    { "name": "manage", "label": "Delete all example notes", "labelDe": "Alle Beispiel-Notizen löschen" }
+  ],
+  "pages": [
+    {
+      "id": "notes",
+      "title": "Example notes",
+      "titleDe": "Beispiel-Notizen",
+      "icon": "tag",
+      "permission": "view",
+      "layout": "ui/notes.json"
+    },
+    {
+      "id": "about",
+      "title": "About the example",
+      "titleDe": "Über das Beispiel",
+      "icon": "puzzle",
+      "layout": "ui/about.json"
+    }
+  ],
+  "dataSources": [
+    {
+      "id": "example",
+      "name": "Example (sample data)",
+      "nameDe": "Beispiel (Beispieldaten)",
+      "description": "One group with made-up members who train once a week. Shows what a data source and its settings form can do.",
+      "descriptionDe": "Eine Gruppe mit erfundenen Mitgliedern, die einmal pro Woche trainieren. Zeigt, was eine Datenquelle und ihr Einstellungsformular können.",
+      "settings": "ui/settings.json"
+    }
+  ]
+}

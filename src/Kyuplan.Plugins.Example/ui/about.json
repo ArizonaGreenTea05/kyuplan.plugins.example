@@ -1,0 +1,25 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "text": "This page has no permission in plugin.json, so every signed-in user sees it, and its endpoints ask for no permission either. The table reads settings and state of the plugin; the button calls an endpoint, after which the table is read again.",
+      "textDe": "Diese Seite hat in plugin.json keine Berechtigung, also sieht sie jeder angemeldete Benutzer, und auch ihre Endpunkte verlangen keine. Die Tabelle liest Einstellungen und Zustand des Plugins; die Schaltfläche ruft einen Endpunkt auf, danach wird die Tabelle neu gelesen."
+    },
+    {
+      "type": "table",
+      "label": "The plugin",
+      "labelDe": "Das Plugin",
+      "source": "about",
+      "columns": [
+        { "key": "name", "label": "What", "labelDe": "Was" },
+        { "key": "value", "label": "Value", "labelDe": "Wert" }
+      ]
+    },
+    {
+      "type": "button",
+      "label": "Say hello",
+      "labelDe": "Hallo sagen",
+      "action": { "method": "POST", "path": "about/hello" }
+    }
+  ]
+}

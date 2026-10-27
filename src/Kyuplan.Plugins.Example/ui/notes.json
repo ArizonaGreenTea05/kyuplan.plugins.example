@@ -1,0 +1,133 @@
+{
+  "elements": [
+    {
+      "type": "text",
+      "text": "A page is a list of elements, drawn one under the other by every client. This one has a table, two forms and a button; each reads or calls an endpoint of the plugin. The page needs the permission example.view; adding needs example.edit, deleting everything example.manage.",
+      "textDe": "Eine Seite ist eine Liste von Elementen, die jeder Client untereinander zeichnet. Diese hat eine Tabelle, zwei Formulare und eine Schaltfläche; jedes liest oder ruft einen Endpunkt des Plugins auf. Die Seite braucht die Berechtigung example.view; Hinzufügen braucht example.edit, alles Löschen example.manage."
+    },
+    {
+      "type": "table",
+      "label": "All notes",
+      "labelDe": "Alle Notizen",
+      "source": "notes",
+      "text": "No notes yet.",
+      "textDe": "Noch keine Notizen.",
+      "columns": [
+        { "key": "id", "label": "#", "labelDe": "Nr." },
+        { "key": "title", "label": "Title", "labelDe": "Titel" },
+        { "key": "category", "label": "Category", "labelDe": "Kategorie" },
+        { "key": "priority", "label": "Priority", "labelDe": "Priorität" },
+        { "key": "pinned", "label": "Pinned", "labelDe": "Angeheftet" },
+        { "key": "created", "label": "Created", "labelDe": "Erstellt" }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Add a note",
+      "textDe": "Notiz hinzufügen"
+    },
+    {
+      "type": "form",
+      "label": "Add note",
+      "labelDe": "Notiz hinzufügen",
+      "action": { "method": "POST", "path": "notes/add" },
+      "elements": [
+        {
+          "type": "field",
+          "id": "title",
+          "label": "Title",
+          "labelDe": "Titel",
+          "input": "text",
+          "required": true,
+          "maxLength": 100
+        },
+        {
+          "type": "field",
+          "id": "category",
+          "label": "Category",
+          "labelDe": "Kategorie",
+          "input": "select",
+          "default": "general",
+          "options": [
+            { "value": "general", "label": "General", "labelDe": "Allgemein" },
+            { "value": "todo", "label": "To do", "labelDe": "Zu erledigen" },
+            { "value": "idea", "label": "Idea", "labelDe": "Idee" }
+          ]
+        },
+        {
+          "type": "field",
+          "id": "priority",
+          "label": "Priority (1 is urgent)",
+          "labelDe": "Priorität (1 ist dringend)",
+          "input": "number",
+          "default": "3",
+          "min": 1,
+          "max": 5
+        },
+        {
+          "type": "field",
+          "id": "pinned",
+          "label": "Pinned",
+          "labelDe": "Angeheftet",
+          "input": "checkbox"
+        },
+        {
+          "type": "field",
+          "id": "details",
+          "label": "Details",
+          "labelDe": "Einzelheiten",
+          "input": "multiline",
+          "maxLength": 500
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Pin or unpin a note",
+      "textDe": "Notiz anheften oder lösen"
+    },
+    {
+      "type": "form",
+      "label": "Pin or unpin",
+      "labelDe": "Anheften oder lösen",
+      "action": { "method": "PUT", "path": "notes/pin" },
+      "elements": [
+        {
+          "type": "text",
+          "text": "The address of a button or form is fixed, so a form asks for the number of the note instead of having it in the address.",
+          "textDe": "Die Adresse einer Schaltfläche oder eines Formulars steht fest; deshalb fragt ein Formular nach der Nummer der Notiz, statt sie in der Adresse zu haben."
+        },
+        {
+          "type": "field",
+          "id": "id",
+          "label": "Number of the note",
+          "labelDe": "Nummer der Notiz",
+          "input": "number",
+          "required": true,
+          "min": 1
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "Delete all notes",
+      "textDe": "Alle Notizen löschen"
+    },
+    {
+      "type": "text",
+      "text": "Everybody who may open this page sees the button, but the endpoint needs example.manage: without it the call is refused. Hiding a page or a button is no protection.",
+      "textDe": "Jeder, der diese Seite öffnen darf, sieht die Schaltfläche, aber der Endpunkt braucht example.manage: Ohne sie wird der Aufruf abgelehnt. Eine Seite oder Schaltfläche zu verstecken schützt nichts."
+    },
+    {
+      "type": "button",
+      "label": "Delete all notes",
+      "labelDe": "Alle Notizen löschen",
+      "action": {
+        "method": "DELETE",
+        "path": "notes/clear",
+        "confirm": "Really delete all notes?",
+        "confirmDe": "Wirklich alle Notizen löschen?"
+      }
+    }
+  ]
+}

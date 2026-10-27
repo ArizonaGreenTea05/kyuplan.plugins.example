@@ -1,0 +1,28 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <Description>Example plugin for Kyuplan: a data source with a settings form, pages, permissions and endpoints. A template for your own plugin.</Description>
+    <RootNamespace>Kyuplan.Plugins.Example</RootNamespace>
+    <InternalsVisibleTo>Kyuplan.Plugins.Example.Tests</InternalsVisibleTo>
+    <!-- The folder of a plugin holds its own files only: the API provides the framework and the abstractions. -->
+    <EnableDynamicLoading>true</EnableDynamicLoading>
+    <GenerateDependencyFile>true</GenerateDependencyFile>
+    <AppendTargetFrameworkToOutputPath>false</AppendTargetFrameworkToOutputPath>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <!-- Private=false: Kyuplan.Plugins.Abstractions.dll is not copied; the API's copy is the one the plugin talks to. -->
+    <ProjectReference Include="$(KyuplanRoot)src/Kyuplan.Plugins.Abstractions/Kyuplan.Plugins.Abstractions.csproj" Private="false" ExcludeAssets="runtime" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <InternalsVisibleTo Include="$(InternalsVisibleTo)" />
+  </ItemGroup>
+
+  <!-- What makes it a plugin: the manifest and the JSON of the pages and the settings form go into the package next to the assembly. -->
+  <ItemGroup>
+    <Content Include="plugin.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+    <Content Include="ui/**/*.json" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
+  </ItemGroup>
+
+</Project>

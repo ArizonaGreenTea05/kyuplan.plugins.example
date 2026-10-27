@@ -1,0 +1,43 @@
+name: CI
+
+# Every pull request and every push to main builds the plugin, runs its tests and packs it. The plugin is built against the Kyuplan.Plugins.Abstractions
+# project of the Kyuplan repository, which is checked out next to it (see KyuplanRoot in Directory.Build.props).
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: kyuplan.plugins.example
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ArizonaGreenTea05/kyuplan
+          path: Kyuplan
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Test
+        working-directory: kyuplan.plugins.example
+        run: dotnet test Kyuplan.Plugins.Example.sln -c Release
+
+      - name: Package
+        working-directory: kyuplan.plugins.example
+        run: |
+          bash scripts/pack.sh
+          unzip -l artifacts/kyuplan-plugin-example.kyuplugin

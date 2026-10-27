@@ -1,0 +1,146 @@
+{
+  "elements": [
+    {
+      "type": "heading",
+      "text": "Sample data",
+      "textDe": "Beispieldaten"
+    },
+    {
+      "type": "text",
+      "text": "The example data source makes up one group. Every kind of input a settings form offers is used below; the field ids are the keys of the section Plugins:example.",
+      "textDe": "Die Beispiel-Datenquelle denkt sich eine Gruppe aus. Unten kommt jede Eingabeart vor, die ein Einstellungsformular kennt; die Feld-IDs sind die Schlüssel der Sektion Plugins:example."
+    },
+    {
+      "type": "field",
+      "id": "GroupName",
+      "label": "Name of the group",
+      "labelDe": "Name der Gruppe",
+      "input": "text",
+      "required": true,
+      "default": "Example karate group",
+      "maxLength": 60
+    },
+    {
+      "type": "field",
+      "id": "MemberCount",
+      "label": "Number of members",
+      "labelDe": "Anzahl der Mitglieder",
+      "hint": "Between 1 and 100.",
+      "hintDe": "Zwischen 1 und 100.",
+      "input": "number",
+      "default": "12",
+      "min": 1,
+      "max": 100
+    },
+    {
+      "type": "field",
+      "id": "TrainingDay",
+      "label": "Training day",
+      "labelDe": "Trainingstag",
+      "input": "select",
+      "default": "Wednesday",
+      "options": [
+        { "value": "Monday", "label": "Monday", "labelDe": "Montag" },
+        { "value": "Tuesday", "label": "Tuesday", "labelDe": "Dienstag" },
+        { "value": "Wednesday", "label": "Wednesday", "labelDe": "Mittwoch" },
+        { "value": "Thursday", "label": "Thursday", "labelDe": "Donnerstag" },
+        { "value": "Friday", "label": "Friday", "labelDe": "Freitag" },
+        { "value": "Saturday", "label": "Saturday", "labelDe": "Samstag" },
+        { "value": "Sunday", "label": "Sunday", "labelDe": "Sonntag" }
+      ]
+    },
+    {
+      "type": "field",
+      "id": "FirstMemberTrains",
+      "label": "The first member hosts the training",
+      "labelDe": "Das erste Mitglied leitet das Training",
+      "hint": "A host (trainer) runs the training instead of taking part: it counts for none of their statistics.",
+      "hintDe": "Wer das Training leitet, nimmt nicht teil: Es zählt für keine seiner Statistiken.",
+      "input": "checkbox",
+      "default": "true"
+    },
+    {
+      "type": "field",
+      "id": "Remark",
+      "label": "Remark",
+      "labelDe": "Anmerkung",
+      "hint": "Shown on the page \"About the example\".",
+      "hintDe": "Wird auf der Seite „Über das Beispiel“ gezeigt.",
+      "input": "multiline",
+      "maxLength": 500
+    },
+    {
+      "type": "list",
+      "id": "ExtraMembers",
+      "label": "Extra members",
+      "labelDe": "Weitere Mitglieder",
+      "hint": "A list holds rows of fields that the user adds and removes. These members are added to the made-up ones.",
+      "hintDe": "Eine Liste besteht aus Zeilen mit Feldern, die man hinzufügt und entfernt. Diese Mitglieder kommen zu den ausgedachten hinzu.",
+      "max": 20,
+      "elements": [
+        {
+          "type": "field",
+          "id": "Name",
+          "label": "Name",
+          "labelDe": "Name",
+          "input": "text",
+          "maxLength": 60
+        },
+        {
+          "type": "field",
+          "id": "BirthYear",
+          "label": "Year of birth",
+          "labelDe": "Geburtsjahr",
+          "input": "number",
+          "min": 1900,
+          "max": 2100
+        }
+      ]
+    },
+    {
+      "type": "heading",
+      "text": "A login",
+      "textDe": "Ein Zugang"
+    },
+    {
+      "type": "text",
+      "text": "The sample data does not use these two fields. They show how a data source asks for the address and the key of a service: the key is stored encrypted and never shown again (an empty field keeps it), and the rule makes sure that one is not saved without the other.",
+      "textDe": "Die Beispieldaten brauchen diese beiden Felder nicht. Sie zeigen, wie eine Datenquelle nach Adresse und Schlüssel eines Dienstes fragt: Der Schlüssel wird verschlüsselt gespeichert und nie wieder angezeigt (ein leeres Feld behält ihn), und die Regel sorgt dafür, dass nicht eines ohne das andere gespeichert wird."
+    },
+    {
+      "type": "field",
+      "id": "ServiceUrl",
+      "label": "Address of the service",
+      "labelDe": "Adresse des Dienstes",
+      "input": "text",
+      "maxLength": 200
+    },
+    {
+      "type": "field",
+      "id": "ApiKey",
+      "label": "Key of the service",
+      "labelDe": "Schlüssel des Dienstes",
+      "input": "password",
+      "maxLength": 500,
+      "together": {
+        "groups": [ [ "ServiceUrl" ], [ "ApiKey" ] ],
+        "message": "The service needs its address and its key, or neither.",
+        "messageDe": "Der Dienst braucht Adresse und Schlüssel, oder keines von beiden."
+      }
+    },
+    {
+      "type": "heading",
+      "text": "Try the error path",
+      "textDe": "Den Fehlerfall ausprobieren"
+    },
+    {
+      "type": "field",
+      "id": "SimulateOutage",
+      "label": "Pretend the service is down",
+      "labelDe": "So tun, als sei der Dienst nicht erreichbar",
+      "hint": "The members and statistics pages then show the message of the data source instead of data.",
+      "hintDe": "Die Seiten Mitglieder und Statistik zeigen dann die Meldung der Datenquelle statt Daten.",
+      "input": "checkbox"
+    }
+  ]
+}
