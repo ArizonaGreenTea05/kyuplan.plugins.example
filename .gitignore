@@ -426,3 +426,6 @@ FodyWeavers.xsd
 
 # Official VS Code C# Dev Kit Extension exclusion
 #*.lscache
+
+# Packages built by scripts/pack.sh and scripts/pack.ps1
+artifacts/

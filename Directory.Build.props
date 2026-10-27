@@ -1,0 +1,19 @@
+<Project>
+
+  <PropertyGroup>
+    <TargetFramework>net10.0</TargetFramework>
+    <LangVersion>latest</LangVersion>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Deterministic>true</Deterministic>
+    <Authors>ArizonaGreenTea05</Authors>
+    <Product>Kyuplan example plugin</Product>
+    <Version>1.0.0</Version>
+    <!--
+      Where the Kyuplan repository is checked out: the plugin is built against its Kyuplan.Plugins.Abstractions project. Next to this repository by
+      default (../Kyuplan); the CI checks it out there. Override with -p:KyuplanRoot=<path>.
+    -->
+    <KyuplanRoot Condition="'$(KyuplanRoot)' == ''">$(MSBuildThisFileDirectory)../Kyuplan/</KyuplanRoot>
+  </PropertyGroup>
+
+</Project>

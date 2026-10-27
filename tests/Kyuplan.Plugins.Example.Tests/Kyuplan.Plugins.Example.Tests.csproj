@@ -1,0 +1,27 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <IsPackable>false</IsPackable>
+    <IsTestProject>true</IsTestProject>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.NET.Test.Sdk" />
+    <PackageReference Include="xunit" />
+    <PackageReference Include="xunit.runner.visualstudio" />
+    <PackageReference Include="Microsoft.Extensions.TimeProvider.Testing" />
+    <!-- Runs the endpoints in memory, behind the same authorization as in Kyuplan. -->
+    <PackageReference Include="Microsoft.AspNetCore.TestHost" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\..\src\Kyuplan.Plugins.Example\Kyuplan.Plugins.Example.csproj" />
+    <!-- The rules the host applies to a package (PluginRules): the manifest and the JSON of the pages have to pass them, or kyuplan refuses to install the plugin. -->
+    <ProjectReference Include="$(KyuplanRoot)src/Kyuplan.Contracts/Kyuplan.Contracts.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Using Include="Xunit" />
+  </ItemGroup>
+
+</Project>

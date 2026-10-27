@@ -1,0 +1,62 @@
+name: Release
+
+# A tag v<version> (v1.2.0) builds the plugin and attaches the package to a GitHub release. Kyuplan installs a plugin from the latest release
+# of its repository, so the release has exactly one .kyuplugin file.
+on:
+  push:
+    tags: ['v*']
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          path: kyuplan.plugins.example
+
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: ArizonaGreenTea05/kyuplan
+          path: Kyuplan
+
+      - uses: actions/setup-dotnet@a98b56852c35b8e3190ac28c8c2271da59106c68 # v6.0.0
+        with:
+          dotnet-version: 10.0.x
+
+      - name: Version of the tag
+        id: v
+        run: echo "version=${GITHUB_REF_NAME#v}" >> "$GITHUB_OUTPUT"
+
+      - name: Test
+        working-directory: kyuplan.plugins.example
+        run: dotnet test Kyuplan.Plugins.Example.sln -c Release -p:Version=${{ steps.v.outputs.version }}
+
+      # The manifest says which version the plugin is; it has to be the one of the tag.
+      - name: Put the version into the manifest
+        working-directory: kyuplan.plugins.example
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          jq --arg v "$VERSION" '.version = $v' src/Kyuplan.Plugins.Example/plugin.json > plugin.json.tmp
+          mv plugin.json.tmp src/Kyuplan.Plugins.Example/plugin.json
+
+      - name: Package
+        id: package
+        working-directory: kyuplan.plugins.example
+        env:
+          VERSION: ${{ steps.v.outputs.version }}
+        run: |
+          dotnet publish src/Kyuplan.Plugins.Example -c Release -o publish -p:Version=$VERSION
+          file="kyuplan-plugin-example-$VERSION.kyuplugin"
+          (cd publish && zip -qr "../$file" .)
+          echo "file=$file" >> "$GITHUB_OUTPUT"
+
+      - name: Create the release
+        working-directory: kyuplan.plugins.example
+        env:
+          GH_TOKEN: ${{ github.token }}
+          FILE: ${{ steps.package.outputs.file }}
+        run: gh release create "$GITHUB_REF_NAME" "$FILE" --title "Example plugin $GITHUB_REF_NAME" --generate-notes
